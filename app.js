@@ -26,6 +26,8 @@ const flightValue = document.querySelector('#flightValue');
 const paceValue = document.querySelector('#paceValue');
 const chartBars = document.querySelector('#chartBars');
 const toast = document.querySelector('#toast');
+const signalStatus = document.querySelector('#signalStatus');
+const waveformBars = [...document.querySelectorAll('.waveform span')];
 
 let round = 0;
 let keyDowns = [];
@@ -37,6 +39,8 @@ let mode = 'baseline';
 let baseline = null;
 let typingStartedAt = null;
 let typingEndedAt = null;
+let signalIndex = 0;
+let lastSignalKeyAt = null;
 
 function showToast(message) {
   toast.textContent = message;
@@ -51,6 +55,9 @@ function resetRound() {
   keyUps = [];
   typingStartedAt = null;
   typingEndedAt = null;
+  signalIndex = 0;
+  lastSignalKeyAt = null;
+  signalStatus.textContent = 'LIVE SIGNAL';
   progressBar.style.width = '0%';
   progressLabel.textContent = `0 / ${prompts[round].length} characters`;
   inputHint.textContent = 'click here to begin';
@@ -114,8 +121,14 @@ function compareToBaseline(result) {
 input.addEventListener('keydown', event => {
   if (event.key.length === 1 || event.key === 'Backspace' || event.key === ' ') {
     const timestamp = performance.now();
+    const interval = lastSignalKeyAt === null ? 120 : timestamp - lastSignalKeyAt;
     if (typingStartedAt === null) typingStartedAt = timestamp;
     typingEndedAt = null;
+    waveformBars[signalIndex % waveformBars.length].style.height = `${Math.max(18, Math.min(94, interval / 2))}%`;
+    waveformBars[signalIndex % waveformBars.length].classList.add('signal-hit');
+    signalIndex += 1;
+    lastSignalKeyAt = timestamp;
+    signalStatus.textContent = 'CAPTURING';
     keyDowns.push(timestamp);
   }
 });
@@ -124,6 +137,7 @@ input.addEventListener('keyup', event => {
   if (event.key.length === 1 || event.key === 'Backspace' || event.key === ' ') {
     typingEndedAt = performance.now();
     keyUps.push(typingEndedAt);
+    signalStatus.textContent = input.value === prompts[round] ? 'SIGNAL READY' : 'CAPTURING';
   }
   updateProgress();
   clearTimeout(completionTimer);
