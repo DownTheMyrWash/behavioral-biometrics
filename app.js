@@ -27,6 +27,7 @@ const paceValue = document.querySelector('#paceValue');
 const chartBars = document.querySelector('#chartBars');
 const toast = document.querySelector('#toast');
 const signalStatus = document.querySelector('#signalStatus');
+const signalInterval = document.querySelector('#signalInterval');
 const waveformBars = [...document.querySelectorAll('.waveform span')];
 
 let round = 0;
@@ -128,6 +129,7 @@ input.addEventListener('keydown', event => {
     waveformBars[signalIndex % waveformBars.length].classList.add('signal-hit');
     signalIndex += 1;
     lastSignalKeyAt = timestamp;
+    signalInterval.textContent = Math.round(interval);
     signalStatus.textContent = 'CAPTURING';
     keyDowns.push(timestamp);
   }
@@ -197,6 +199,7 @@ verifyButton.addEventListener('click', () => {
   if (!baseline) return;
   mode = 'verify';
   round = 0;
+  signalInterval.textContent = '—';
   testTitle.textContent = 'Verify your rhythm';
   testIntro.textContent = 'Type the phrase again at a comfortable pace. We compare timing, not text.';
   promptText.textContent = prompts[round];
@@ -209,6 +212,7 @@ verifyButton.addEventListener('click', () => {
 });
 
 resetButton.addEventListener('click', () => {
+  signalInterval.textContent = '—';
   resetRound();
   showToast('Current round cleared.');
 });
@@ -219,6 +223,7 @@ clearData.addEventListener('click', event => {
   roundResults = [];
   baseline = null;
   mode = 'baseline';
+  signalInterval.textContent = '—';
   consistencyValue.innerHTML = '—<small>%</small>';
   consistencyMeter.style.width = '0%';
   consistencyNote.textContent = 'Complete a round to reveal your pattern.';
