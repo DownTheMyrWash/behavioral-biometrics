@@ -2,7 +2,7 @@
 
 A small, privacy-first behavioral biometrics demo for GitHub Pages. It explores typing rhythm by measuring timing patterns in the browser, building a three-round baseline, and comparing a fresh sample against it.
 
-This project was generated mostly with GitHub Copilot for demonstration purposes.
+This project was generated in part with GitHub Copilot for demonstration purposes.
 
 ## Run locally
 
