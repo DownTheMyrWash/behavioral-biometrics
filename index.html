@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="A privacy-first behavioral biometrics lab for exploring typing rhythm." />
+  <title>Rhythm / behavioral biometrics lab</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="Rhythm home"><span class="brand-mark">R</span><span>rhythm<span class="brand-dot">.</span></span></a>
+      <nav class="nav" aria-label="Main navigation">
+        <a class="active" href="#test">Live test</a>
+        <a href="#how-it-works">How it works</a>
+        <a href="#privacy">Privacy</a>
+      </nav>
+      <span class="status"><i></i> local only</span>
+    </header>
+
+    <main id="top">
+      <section class="hero" id="test">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span> behavioral signal / 01</div>
+          <h1>Your rhythm is <em>unique.</em></h1>
+          <p class="hero-lede">A tiny, hands-on lab for seeing the invisible patterns in the way you type. No account. No uploads. Just your timing.</p>
+          <div class="hero-meta"><span>⌁ 3 rounds</span><span>⌁ 20 seconds</span><span>⌁ zero raw text stored</span></div>
+        </div>
+        <div class="hero-visual" aria-label="Illustration of a typing rhythm waveform">
+          <div class="visual-label">LIVE SIGNAL <span>●</span></div>
+          <div class="waveform" aria-hidden="true">
+            <span style="--h: 28%"></span><span style="--h: 54%"></span><span style="--h: 38%"></span><span style="--h: 76%"></span><span style="--h: 46%"></span><span style="--h: 88%"></span><span style="--h: 31%"></span><span style="--h: 62%"></span><span style="--h: 42%"></span><span style="--h: 70%"></span><span style="--h: 35%"></span><span style="--h: 94%"></span><span style="--h: 50%"></span><span style="--h: 66%"></span><span style="--h: 27%"></span><span style="--h: 80%"></span><span style="--h: 44%"></span><span style="--h: 58%"></span>
+          </div>
+          <div class="visual-footer"><span>keystroke interval</span><strong>ms</strong></div>
+        </div>
+      </section>
+
+      <section class="workspace-grid">
+        <article class="test-panel panel" id="how-it-works">
+          <div class="panel-heading"><div><span class="section-index">01</span><h2 id="testTitle">Find your baseline</h2></div><span class="round-indicator" id="roundLabel">ROUND 1 / 3</span></div>
+          <p class="panel-intro" id="testIntro">Type the phrase below at a comfortable pace. The test reads timing, not what you say.</p>
+          <div class="prompt-box"><span class="prompt-label">PHRASE TO TYPE</span><p id="promptText">The quiet mind notices more.</p></div>
+          <label class="typing-wrap" for="typingInput"><span class="input-label">YOUR INPUT <span id="inputHint">click here to begin</span></span><textarea id="typingInput" rows="2" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Type the phrase shown above"></textarea><span class="input-caret" aria-hidden="true"></span></label>
+          <div class="test-footer"><div class="progress-track"><span id="progressBar"></span></div><span id="progressLabel">0 / 28 characters</span><button id="resetButton" class="text-button" type="button">Reset ↺</button></div>
+          <button id="nextButton" class="primary-button" type="button" disabled>Complete round <span>→</span></button>
+          <div class="verify-controls" id="verifyControls" hidden><button id="verifyButton" class="secondary-button" type="button">Test this rhythm <span>→</span></button><p>Use a fresh sample to see whether this rhythm matches your baseline.</p></div>
+        </article>
+
+        <aside class="insights-panel panel">
+          <div class="panel-heading"><div><span class="section-index">02</span><h2>Signal preview</h2></div><span class="live-pill"><i></i> tracking</span></div>
+          <div class="metric-feature"><span class="metric-label" id="consistencyLabel">TYPING CONSISTENCY</span><strong id="consistencyValue">—<small>%</small></strong><div class="meter"><span id="consistencyMeter"></span></div><p id="consistencyNote">Complete a round to reveal your pattern.</p></div>
+          <div class="metrics-list"><div><span>avg. key hold</span><strong id="holdValue">— <small>ms</small></strong></div><div><span>avg. flight time</span><strong id="flightValue">— <small>ms</small></strong></div><div><span>typing pace</span><strong id="paceValue">— <small>wpm</small></strong></div></div>
+          <div class="signal-chart"><div class="chart-grid"></div><div id="chartBars" class="chart-bars" aria-label="Your most recent keystroke timing"></div><span class="chart-caption">recent intervals <b>← newest</b></span></div>
+        </aside>
+      </section>
+
+      <section class="lower-grid" id="privacy">
+        <article class="manifesto"><span class="eyebrow"><span class="eyebrow-line"></span> the idea</span><h2>Behavior is a signal, not a secret.</h2><p>Behavioral biometrics looks at <mark>how</mark> you interact: cadence, pressure, pauses, and flow. Rhythm makes the concept tangible without turning your identity into a password.</p></article>
+        <article class="privacy-card"><div class="privacy-icon">⌁</div><div><h3>Designed to disappear</h3><p>Your keystrokes are analyzed in memory and turned into three aggregate numbers. Close this tab and the session is gone.</p><a href="#privacy" id="clearData">Clear local session <span>→</span></a></div></article>
+      </section>
+    </main>
+    <footer><span>RHYTHM / AN OPEN EXPLORATION</span><span>BUILT FOR THE CURIOUS <b>✦</b></span></footer>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
